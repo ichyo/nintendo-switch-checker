@@ -1,3 +1,10 @@
+# Fork note
+This is fork repository of haya14busa/nintendo-switch-checker.
+Please use this command to install
+```
+$ go get -u github.com/ichyo/nintendo-switch-checker/cmd/nintendo-switch-checker
+```
+
 # nintendo-switch-checker :heavy_check_mark:
 
 Can't you buy Nintendo Switch because the stocks always sold out soon?
