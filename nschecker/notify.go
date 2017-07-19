@@ -46,9 +46,9 @@ func (n *SlackNotifier) Notify(state State, s Source) error {
 		n.statesMu.Unlock()
 	}()
 	n.statesMu.Lock()
-	oldState, ok := n.states[s.URL]
+	oldState, _ := n.states[s.URL]
 	n.statesMu.Unlock()
-	if (!ok && state == SOLDOUT) || (state == ERROR) {
+	if (state == SOLDOUT && oldState != AVAILABLE) || (state == ERROR) {
 		return nil
 	}
 	if oldState == state {
@@ -177,9 +177,9 @@ func (n *SlackWebhookNotifier) Notify(state State, s Source) error {
 		n.statesMu.Unlock()
 	}()
 	n.statesMu.Lock()
-	oldState, ok := n.states[s.URL]
+	oldState, _ := n.states[s.URL]
 	n.statesMu.Unlock()
-	if (!ok && state == SOLDOUT) || (state == ERROR) {
+	if (state == SOLDOUT && oldState != AVAILABLE) || (state == ERROR) {
 		return nil
 	}
 	if oldState == state {
