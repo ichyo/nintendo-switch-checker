@@ -16,7 +16,7 @@ var (
 	interval = flag.Duration("interval", 1*time.Minute, "Check interval")
 	channel  = flag.String("channel", "", "Slack channel name where checker posts comments")
 	once     = flag.Bool("once", false, "Check once")
-	notifier = flag.String("notifier", "", "Notifier target, slack or line")
+	notifier = flag.String("notifier", "", "Notifier target, slack or line or slack-webhook")
 )
 
 const (
@@ -50,7 +50,7 @@ func main() {
 	flag.Parse()
 
 	if *notifier == "" {
-		log.Println("Please set -notifier=slack (or line)")
+		log.Println("Please set -notifier=slack (or line or slack-webhook)")
 		return
 	}
 
@@ -66,7 +66,7 @@ func main() {
 			return
 		}
 		if *channel == "" {
-			log.Println("Please set -slack-channel flag")
+			log.Println("Please set -channel flag")
 			return
 		}
 
