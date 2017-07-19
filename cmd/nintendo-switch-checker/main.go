@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/haya14busa/nintendo-switch-checker/nschecker"
+	"github.com/ichyo/nintendo-switch-checker/nschecker"
 )
 
 var (
