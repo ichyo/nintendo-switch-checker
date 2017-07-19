@@ -51,7 +51,7 @@ func (n *SlackNotifier) Notify(state State, s Source) error {
 	if (state == SOLDOUT && oldState != AVAILABLE) || (state == ERROR) {
 		return nil
 	}
-	if oldState == state {
+	if oldState == state && state != AVAILABLE {
 		log.Printf("same state: %v url=%v name=%v", state, s.URL, s.Name)
 		return nil
 	}
@@ -59,7 +59,7 @@ func (n *SlackNotifier) Notify(state State, s Source) error {
 	if state == AVAILABLE {
 		channel = "<!channel|channel> "
 	}
-	msg := fmt.Sprintf("%s%v: %v (%v)", channel, state, s.URL, s.Name)
+	msg := fmt.Sprintf("%s%v -> %v: %v (%v)", channel, oldState, state, s.URL, s.Name)
 	return n.SendMessage(msg)
 }
 
@@ -182,7 +182,7 @@ func (n *SlackWebhookNotifier) Notify(state State, s Source) error {
 	if (state == SOLDOUT && oldState != AVAILABLE) || (state == ERROR) {
 		return nil
 	}
-	if oldState == state {
+	if oldState == state && state != AVAILABLE {
 		log.Printf("same state: %v url=%v name=%v", state, s.URL, s.Name)
 		return nil
 	}
@@ -190,7 +190,7 @@ func (n *SlackWebhookNotifier) Notify(state State, s Source) error {
 	if state == AVAILABLE {
 		channel = "<!channel|channel> "
 	}
-	msg := fmt.Sprintf("%s%v: %v (%v)", channel, state, s.URL, s.Name)
+	msg := fmt.Sprintf("%s%v -> %v: %v (%v)", channel, oldState, state, s.URL, s.Name)
 	return n.SendMessage(msg)
 }
 
