@@ -179,7 +179,7 @@ func (n *SlackWebhookNotifier) Notify(state State, s Source) error {
 	n.statesMu.Lock()
 	oldState, ok := n.states[s.URL]
 	n.statesMu.Unlock()
-	if !ok && state == SOLDOUT {
+	if (!ok && state == SOLDOUT) || (state == ERROR) {
 		return nil
 	}
 	if oldState == state {
