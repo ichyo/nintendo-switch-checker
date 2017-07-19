@@ -17,6 +17,7 @@ var (
 	channel  = flag.String("channel", "", "Slack channel name where checker posts comments")
 	once     = flag.Bool("once", false, "Check once")
 	notifier = flag.String("notifier", "", "Notifier target, slack or line or slack-webhook")
+	timeout  = flag.Duration("timeout", 10*time.Second, "timeout")
 )
 
 const (
@@ -97,6 +98,7 @@ func main() {
 		Notifier: n,
 		Interval: *interval,
 		Once:     *once,
+		Timeout:  *timeout,
 	}
 	if err := c.run(); err != nil {
 		log.Fatal(err)
@@ -107,6 +109,8 @@ type Checker struct {
 	Notifier nschecker.Notifier
 	Interval time.Duration
 	Once     bool
+	Timeout  time.Duration
+	client   *http.Client
 }
 
 const startupMsg = "Nintendo Switch Checker started"
@@ -139,10 +143,11 @@ func (c *Checker) runChecks() {
 		}(s)
 	}
 	wg.Wait()
+	log.Println("Run checkers done")
 }
 
 func (c *Checker) check(s nschecker.Source) {
-	state, err := nschecker.Check(s, nil)
+	state, err := nschecker.Check(s, c.getClient())
 	if err != nil {
 		log.Printf("Check failed: %s: %v", s.Name, err)
 	}
@@ -150,4 +155,11 @@ func (c *Checker) check(s nschecker.Source) {
 	if err := c.Notifier.Notify(state, s); err != nil {
 		log.Printf("fail to notify: %v", err)
 	}
+}
+
+func (c *Checker) getClient() *http.Client {
+	if c.client == nil {
+		c.client = &http.Client{Timeout: c.Timeout}
+	}
+	return c.client
 }
