@@ -2,13 +2,13 @@ package nschecker
 
 var Sources = []Source{
 	{
-		Name:          "Amazon.co.jp： Nintendo Switch Proコントローラー: ゲーム",
-		URL:           "http://amzn.asia/5E7lLjn",
+		Name:          "Amazon.co.jp： Nintendo Switch Proコントローラー",
+		URL:           "https://www.amazon.co.jp/dp/B01NCX3W3O/",
 		AvailableText: `この商品は、<a href="/gp/help/customer/display.html?ie=UTF8&amp;nodeId=643004">Amazon.co.jp</a> が販売、発送します。`,
 	},
 	{
-		Name:          "Amazon.co.jp： Nintendo Switch Proコントローラー スプラトゥーン2エディション: ゲーム",
-		URL:           "http://amzn.asia/7J85IrR",
+		Name:          "Amazon.co.jp： Nintendo Switch Proコントローラー スプラトゥーン2エディション",
+		URL:           "https://www.amazon.co.jp/dp/B072FHHZFJ/",
 		AvailableText: `この商品は、<a href="/gp/help/customer/display.html?ie=UTF8&amp;nodeId=643004">Amazon.co.jp</a> が販売、発送します。`,
 	},
 	{

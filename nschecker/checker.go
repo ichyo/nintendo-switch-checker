@@ -46,7 +46,14 @@ func Check(s Source, hc *http.Client) (State, error) {
 		hc = http.DefaultClient
 	}
 
-	resp, err := hc.Get(s.URL)
+	req, err := http.NewRequest("GET", s.URL, nil)
+	if err != nil {
+		return ERROR, err
+	}
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36")
+
+	resp, err := hc.Do(req)
 	if err != nil {
 		return ERROR, err
 	}

@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"sync"
@@ -147,6 +148,7 @@ func (c *Checker) runChecks() {
 }
 
 func (c *Checker) check(s nschecker.Source) {
+	time.Sleep((time.Duration)(rand.Int63n((int64)(20 * time.Second))))
 	state, err := nschecker.Check(s, c.getClient())
 	if err != nil {
 		log.Printf("Check failed: %s: %v", s.Name, err)
